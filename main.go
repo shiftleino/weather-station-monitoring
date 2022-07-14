@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	var result string = string(extractor.GetNetatmoData())
+	var result string = extractor.GetStationData()
 	fmt.Println(result)
 	fmt.Println("Success.")
 }
