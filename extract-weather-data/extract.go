@@ -19,7 +19,7 @@ const getStationDataReq = "api/getstationsdata?get_favorites=false"
 
 func getAccessToken() string {
 	fmt.Println("Requesting Access Token...")
-	var seachUrl string = baseUrl + getAccessTokenReq
+	var searchUrl string = baseUrl + getAccessTokenReq
 	godotenv.Load(".env")
 	var clientSecret string = os.Getenv("CLIENT_SECRET")
 	var clientId string = os.Getenv("CLIENT_ID")
@@ -34,7 +34,7 @@ func getAccessToken() string {
 	urlParameters.Set("password", password)
 	urlParameters.Set("scope", "read_station")
 	postBody := strings.NewReader(urlParameters.Encode())
-	req, err := http.NewRequest(http.MethodPost, seachUrl, postBody)
+	req, err := http.NewRequest(http.MethodPost, searchUrl, postBody)
 	if err != nil {
 		fmt.Printf("Error when creating request: %s\n", err)
 		os.Exit(1)
