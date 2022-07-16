@@ -64,8 +64,7 @@ func getAccessToken() string {
 	return accessToken
 }
 
-func GetStationData() string {
-	fmt.Println("Requesting Weather Station Data...")
+func ExtractStationData() string {
 	var searchUrl string = baseUrl + getStationDataReq
 	req, err := http.NewRequest(http.MethodGet, searchUrl, nil)
 	if err != nil {
@@ -74,6 +73,7 @@ func GetStationData() string {
 	}
 
 	var accessToken string = getAccessToken()
+	fmt.Println("Requesting Weather Station Data...")
 	var auth string = fmt.Sprintf("Bearer %s", accessToken)
 	req.Header.Add("accept", "application/json")
 	req.Header.Add("Authorization", auth)
@@ -95,9 +95,4 @@ func GetStationData() string {
 	}
 
 	return string(resBody)
-}
-
-func ExtractNetatmoData() string {
-	var result string = "Hello World"
-	return result
 }

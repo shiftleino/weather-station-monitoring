@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	var result string = extractor.GetStationData()
-	fmt.Println(result)
+	var stationData string = extractor.ExtractStationData()
+	fmt.Println(stationData)
 	fmt.Println("Success.")
 }
