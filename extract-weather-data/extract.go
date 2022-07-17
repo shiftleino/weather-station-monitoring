@@ -60,7 +60,16 @@ func getAccessToken() string {
 	var resBodyContent string = string(resBody)
 	var resData map[string]interface{}
 	json.Unmarshal([]byte(resBodyContent), &resData)
-	accessToken := fmt.Sprint(resData["access_token"])
+	rawAccessToken, ok := resData["access_token"]
+	if !ok {
+		fmt.Println("Value access_token does not exist.")
+		os.Exit(1)
+	}
+	accessToken, ok := rawAccessToken.(string)
+	if !ok {
+		fmt.Println("Value access_token is not a string.")
+		os.Exit(1)
+	}
 	return accessToken
 }
 
