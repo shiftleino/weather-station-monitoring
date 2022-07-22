@@ -2,8 +2,7 @@ package transformer
 
 import (
 	"encoding/json"
-	"fmt"
-	"os"
+	"log"
 	"time"
 )
 
@@ -47,7 +46,7 @@ type resultTemplate struct {
 }
 
 func TransformStationData(stationData string) string {
-	fmt.Println("Transforming Weather Station Data...")
+	log.Println("Transforming Weather Station Data...")
 	var stationContent *stationBody
 	json.Unmarshal([]byte(stationData), &stationContent)
 
@@ -76,8 +75,7 @@ func TransformStationData(stationData string) string {
 
 	transformedDataJSON, err := json.Marshal(transformedData)
 	if err != nil {
-		fmt.Println("Error when creating the transformed data JSON.")
-		os.Exit(1)
+		log.Fatalf("Error when creating the transformed data JSON.")
 	}
 
 	return string(transformedDataJSON)
