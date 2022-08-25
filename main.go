@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"log"
 
 	extractor "github.com/shiftleino/weather-data-pipeline/extract-weather-data"
 	loader "github.com/shiftleino/weather-data-pipeline/load-weather-data"
@@ -15,5 +15,5 @@ func main() {
 	var stationData string = extractor.ExtractStationData()
 	var transformedStationData string = transformer.TransformStationData(stationData)
 	loader.LoadStationDataSheets(transformedStationData, *env)
-	fmt.Println("Success.")
+	log.Println("Success.")
 }
