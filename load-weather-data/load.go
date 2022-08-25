@@ -62,7 +62,7 @@ func LoadStationDataSheets(stationData string, env string) {
 	}
 
 	var data sheets.ValueRange
-	appendRange := fmt.Sprintf("%s!A:B", env)
+	appendRange := fmt.Sprintf("%s!A:K", env)
 	data.Values = append(data.Values, jsonDataValues)
 
 	_, err := service.Values.Append(spredsheetId, appendRange, &data).ValueInputOption("USER_ENTERED").Do()
