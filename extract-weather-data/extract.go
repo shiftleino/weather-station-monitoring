@@ -49,12 +49,17 @@ func getAccessToken() string {
 		log.Fatalf("Error when sending request: %s\n", err)
 	}
 	defer res.Body.Close()
-	log.Printf("Got Response: %d\n", res.StatusCode)
-
+	statusCode := res.StatusCode
+	log.Printf("Got Response: %d\n", statusCode)
 	resBody, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		log.Fatalf("Error when reading response body: %s\n", err)
 	}
+
+	if statusCode != 200 {
+		log.Fatalf("Error when requesting access token, exiting with status %d:\n%s", statusCode, resBody)
+	}
+
 	var resData map[string]interface{}
 	json.Unmarshal(resBody, &resData)
 	rawAccessToken, ok := resData["access_token"]
@@ -95,5 +100,6 @@ func ExtractStationData() string {
 		log.Fatalf("Error when reading response body: %s\n", err)
 	}
 
+	log.Println("Weather Station Data Extracted Successfully.")
 	return string(resBody)
 }

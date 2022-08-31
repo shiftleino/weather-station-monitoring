@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"log"
 
 	extractor "github.com/shiftleino/weather-data-pipeline/extract-weather-data"
@@ -10,10 +9,8 @@ import (
 )
 
 func main() {
-	env := flag.String("env", "test", "Environment name, used in Sheets")
-	flag.Parse()
 	var stationData string = extractor.ExtractStationData()
 	var transformedStationData string = transformer.TransformStationData(stationData)
-	loader.LoadStationDataSheets(transformedStationData, *env)
-	log.Println("Success.")
+	loader.LoadStationDataSheets(transformedStationData)
+	log.Println("Weather Station Data Pipeline Executed Successfully.")
 }

@@ -78,5 +78,6 @@ func TransformStationData(stationData string) string {
 		log.Fatalf("Error when creating the transformed data JSON.")
 	}
 
+	log.Println("Weather Station Data Transformed Successfully.")
 	return string(transformedDataJSON)
 }

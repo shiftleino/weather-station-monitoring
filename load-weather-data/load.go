@@ -37,12 +37,13 @@ func createSheetsService(confFilePath string) *sheets.SpreadsheetsService {
 	return service.Spreadsheets
 }
 
-func LoadStationDataSheets(stationData string, env string) {
+func LoadStationDataSheets(stationData string) {
 	log.Println("Loading Weather Station Data into Google Sheets...")
 
 	godotenv.Load(".env")
 	var confFilePath string = os.Getenv("CONF_FILEPATH")
 	var spredsheetId string = os.Getenv("SPREADSHEET_ID")
+	var env_name string = os.Getenv("ENV_NAME")
 	service := createSheetsService(confFilePath)
 
 	var jsonData *jsonContent
@@ -62,11 +63,13 @@ func LoadStationDataSheets(stationData string, env string) {
 	}
 
 	var data sheets.ValueRange
-	appendRange := fmt.Sprintf("%s!A:K", env)
+	appendRange := fmt.Sprintf("%s!A:K", env_name)
 	data.Values = append(data.Values, jsonDataValues)
 
 	_, err := service.Values.Append(spredsheetId, appendRange, &data).ValueInputOption("USER_ENTERED").Do()
 	if err != nil {
 		log.Fatalf("Error when appending data to Google Sheets: %v\n", err)
 	}
+
+	log.Println("Weather Station Data Loaded Successfully.")
 }
